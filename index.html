@@ -3,9 +3,11 @@
 <head>
 	<title>Dom's Twitter</title>
 	<!-- Latest compiled and minified CSS -->
+	<link rel="shortcut icon" href="http://rebeccasbirdgardensblog.blogspot.hk/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
@@ -27,36 +29,53 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<form class="navbar-form navbar-left" role="search">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search Tweets...">
+							<input type="text" class="form-control" placeholder="Search Chirps...">
 						</div>
 						<button type="submit" class="btn btn-primary">Search</button>
+						<span id="signedin"></span>
 					</form>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Link</a></li>
+					<ul class="nav navbar-nav navbar-right" id="signin-dropdown">
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sign In <span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Log In <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<input id="signin-username" placeholder="Username...">
-								<input id="signin-password" placeholder="Password...">
-								<button class="btn btn-success">Sign In</button>
+								<div class="container-fluid" id="sign-in-menu">
+									<label>Username:</label>
+									<input autocomplete='on' type="username" class="form-control" id="signin-username" placeholder="Username...">
+									<label>Password:</label>
+									<input autocomplete='on' type="password" class="form-control" id="signin-password" placeholder="Password...">
+									<button class="btn btn-success" id="signin">Log In</button>
+								</div>
 							</ul>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right" id="signup-dropdown">
-						<li><a href="#">Link</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sign Up <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<input id="username" placeholder="Username...">
-								<input id="email" placeholder="Email...">
-								<input id="password" placeholder="Password...">
-								<button class="btn btn-success" id="signup">Sign Up</button>
+								<div class="container-fluid" id="sign-up-menu">
+									<label>Username:</label>
+									<input autocomplete='on' type="username" class="form-control" id="username" placeholder="Username...">
+									<label>Email:</label>
+									<input autocomplete='on' type="email" class="form-control" id="email" placeholder="Email...">
+									<label>Password:</label>
+									<input autocomplete='on'  type="password" class="form-control" id="password" placeholder="Password...">
+									<button class="btn btn-success" id="signup">Sign Up</button>
+								</div>
 							</ul>
 						</li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
+	
+	<div class="container" id="main-content">
+		
+		<h1>Chirp</h1>
+		
+		
+	</div>
+	
+	
 	
 
 
