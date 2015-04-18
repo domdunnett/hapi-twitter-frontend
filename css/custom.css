@@ -1,5 +1,6 @@
 body {
-	background-size: cover;
+	background-color: cornflowerblue;
+/*	background-size: auto;*/
 	height: 60%;
 	font-family: 'Montserrat', sans-serif;
 }
@@ -21,4 +22,35 @@ h1 {
 #signedin {
 	display: inline;
   list-style-type: none;
+}
+
+h4 {
+	text-align: center;
+	color: white;
+}
+
+.form-control {
+	width: auto;
+}
+
+@media (max-width: 750px) {
+	.navbar-form {
+		margin-top: 0;
+		border-top: none;
+	}
+}
+#tweet-input {
+	width: 100%;
+}
+
+#all-tweets {
+	background-color: white;
+}
+
+li {
+	list-style-type: none;	
+}
+
+.tweet-user {
+	padding-bottom: 1em;
 }

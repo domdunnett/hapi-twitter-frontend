@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Dom's Twitter</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="shortcut icon" href="http://rebeccasbirdgardensblog.blogspot.hk/favicon.ico" type="image/x-icon" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/custom.css">
-</head>
+	<head>
+		<title>Dom's Twitter</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="shortcut icon" href="http://rebeccasbirdgardensblog.blogspot.hk/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/custom.css">
+	</head>
 <body>
 
 		<nav class="navbar navbar-default">
@@ -27,13 +27,11 @@
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search Chirps...">
+						<div class="form-group navbar-form navbar-left" role="search">
+							<input type="text" class="form-control" placeholder="Search Chirps..." id="user-search">
+							<button type="submit" class="btn btn-primary" id="search-button">Search</button>
 						</div>
-						<button type="submit" class="btn btn-primary">Search</button>
 						<span id="signedin"></span>
-					</form>
 					<ul class="nav navbar-nav navbar-right" id="signin-dropdown">
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Log In <span class="caret"></span></a>
@@ -70,8 +68,40 @@
 	
 	<div class="container" id="main-content">
 		
-		<h1>Chirp</h1>
+		<div class="row">
+			<h1>Chirp</h1>
+		</div>
 		
+		<div class="row">
+			<h4 class="col-xs-12 col-md-6 col-md-offset-3">
+				Connect with your friends — and other fascinating people. Get in-the-moment updates on the things that interest you. And watch events unfold, in real time, from every angle.
+			</h4>
+		</div>
+		
+		<div class="row">
+			
+			<div class="col-xs-12 col-md-6 panel panel-default">
+				<ul id="all-tweets">
+				</ul>
+			</div>
+			
+			<div class="col-xs-12 col-md-6">
+				
+				<div class="row">
+					<div class="col-xs-12" id="user-tweets">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12" id="post-tweet">
+						<textarea rows="3" id="tweet-input" class="form-control" placeholder="Tell the world something..."></textarea>
+						<button class="btn btn-success" id="new-tweet">Chirp</button>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
 		
 	</div>
 	
