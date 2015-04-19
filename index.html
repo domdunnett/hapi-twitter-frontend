@@ -29,7 +29,6 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<div class="form-group navbar-form navbar-left" role="search">
 							<input type="text" class="form-control" placeholder="Search Chirps..." id="user-search">
-							<button type="submit" class="btn btn-primary" id="search-button">Search</button>
 						</div>
 						<span id="signedin"></span>
 					<ul class="nav navbar-nav navbar-right" id="signin-dropdown">
@@ -86,16 +85,18 @@
 			</div>
 			
 			<div class="col-xs-12 col-md-6">
-				
-				<div class="row">
-					<div class="col-xs-12" id="user-tweets">
+						
+				<div class="row user-info">
+					<div class="col-xs-12" id="post-tweet">
+						<textarea rows="3" id="tweet-input" class="form-control" placeholder="Tell the world something..." maxlength="140"></textarea>
+						<button class="btn btn-success" id="new-tweet">Chirp</button><span id="characters-remaining">140</span>
 					</div>
 				</div>
-				
-				<div class="row">
-					<div class="col-xs-12" id="post-tweet">
-						<textarea rows="3" id="tweet-input" class="form-control" placeholder="Tell the world something..."></textarea>
-						<button class="btn btn-success" id="new-tweet">Chirp</button>
+
+				<div class="row user-info">
+					<div class="col-xs-12 panel panel-default">
+						<ul id="user-tweets">
+						</ul>
 					</div>
 				</div>
 				

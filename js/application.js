@@ -37,7 +37,8 @@ $(document).ready(function() {
 	
 	
 	//Hide Tweet Create
-	$('#post-tweet').hide();
+	$('.user-info').hide();
+	
 	
 	//	Ajax Request template
 	function Request() {
@@ -49,26 +50,59 @@ $(document).ready(function() {
 		this.success = function(response) {
 		};
 	}
+
+	//Get all user tweets
+	function getUserTweets(username) {
+		var userTweetRequest = new Request();
+		
+		userTweetRequest.type = 'GET';
+		userTweetRequest.url += '/users/'+ username +'/tweets';
+		userTweetRequest.success = function(response) {
+			console.log(response);
+			
+			if(response.length) {
+				$('#user-tweets').html('');
+				for(var i = 0; i < response.length; i++) {
+					var text= '';
+					text += '<li>' + response[i].tweet + '</li>';
+					$('#user-tweets').append(text);
+				}
+			}
+			else {
+				$('#user-tweets').html('');
+				$('#user-tweets').append("No tweets found.");
+			}
+		}
+		
+		console.log(userTweetRequest);
+		
+		$.ajax(userTweetRequest);
+	}
 	
 	//List all tweets
-	var allTweetsRequest = new Request();
-	allTweetsRequest.type = 'GET';
-	allTweetsRequest.url += '/tweets';
-	allTweetsRequest.success = function(response) {
-		for(var i = 0; i < response.length; i++) {
-			var text= '';
-			text += '<li>' + response[i].tweet + '</li>';
-			text += '<li class="tweet-user"><em>' + response[i].user + '</em></li>';
-			
-			$('#all-tweets').append(text);
-		}
-	};
-	allTweetsRequest.error = function(response) {
-		$('#all-tweets').append('<li>' + response.responseText + '</li>');
-	};
+	
+	function listAll() {
+		var allTweetsRequest = new Request();
+		allTweetsRequest.type = 'GET';
+		allTweetsRequest.url += '/tweets';
+		allTweetsRequest.success = function(response) {
+			for(var i = 0; i < response.length; i++) {
+				var text= '';
+				text += '<li>' + response[i].tweet + '</li>';
+				text += '<li class="tweet-user"><em>' + response[i].user + '</em></li>';
+
+				$('#all-tweets').append(text);
+			}
+		};
+		allTweetsRequest.error = function(response) {
+			$('#all-tweets').append('<li>' + response.responseText + '</li>');
+		};
 
 
-	$.ajax(allTweetsRequest);
+		$.ajax(allTweetsRequest);		
+	}
+	
+	listAll();
 
 	
 	// Prevent closing the sign up form on click
@@ -112,7 +146,7 @@ $(document).ready(function() {
 			signInRequest.success = function(response) {
 				$('#signup-dropdown').hide('slow');
 				$('#signin-dropdown').hide('slow');
-				$('#post-tweet').show('slow');
+				$('.user-info').show('slow');
 				$('#signedin').text("Hello " + usernameInput + ", you are now signed in.")
 			};
 			signInRequest.error = function(response) {
@@ -151,9 +185,11 @@ $(document).ready(function() {
 		newRequest.success = function(response) {
 			$('#signin-dropdown').hide('slow');
 			$('#signup-dropdown').hide('slow');
-			$('#post-tweet').show('slow');
+			$('.user-info').show('slow');
 			$('#signedin').text("Hello " + usernameInput + ", you are now signed in.")
 			console.log(response);
+			console.log(usernameInput);
+			getUserTweets(usernameInput);
 		};
 		newRequest.error = function(response) {
 			$('#sign-in-menu').attr('class', 'has-error');
@@ -166,10 +202,14 @@ $(document).ready(function() {
 	});
 	
 	// Search tweets request
-	$('#search-button').on('click', function() {
-		$('#all-tweets').html('');
+	$('#user-search').on('keyup', function() {
 		
 		var searchInput = $('#user-search').val();
+		
+		if(!searchInput) {
+			$('#all-tweets').html('');
+			listAll();
+		}
 		
 		var searchRequest = new Request();
 		searchRequest.type = 'GET';
@@ -177,14 +217,20 @@ $(document).ready(function() {
 		searchRequest.success = function(response) {
 			console.log(response);
 			
-			
-			for(var i = 0; i < response.length; i++) {
-				var text= '';
-				text += '<li>' + response[i].tweet + '</li>';
-				text += '<li class="tweet-user"><em>' + response[i].user + '</em></li>';
+			if(response.length) {
+				$('#all-tweets').html('');
+				for(var i = 0; i < response.length; i++) {
+					var text= '';
+					text += '<li>' + response[i].tweet + '</li>';
+					text += '<li class="tweet-user"><em>' + response[i].user + '</em></li>';
 
-				$('#all-tweets').append(text);
-				
+					$('#all-tweets').append(text);
+
+				}
+			}
+			else {
+				$('#all-tweets').html('');
+				$('#all-tweets').append("No tweets found.");
 			}
 		}
 		console.log(searchRequest);
@@ -228,7 +274,17 @@ $(document).ready(function() {
 //		
 //	}
 //	
-//Home page reload link
+	
+	
+	//Characters remaining
+	$('#tweet-input').on('keyup', function() {
+		var currentCharacters = $(this).val().length;
+		var remainingCharacters = 140 - currentCharacters;
+		$('#characters-remaining').text(remainingCharacters);
+	})
+	
+	
+	//Home page reload link
 	$('.navbar-brand').on('click', function() {
 		location.reload();
 	});

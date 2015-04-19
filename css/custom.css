@@ -54,3 +54,12 @@ li {
 .tweet-user {
 	padding-bottom: 1em;
 }
+#characters-remaining {
+	color: white;
+	padding-left: 1em;
+}
+
+.user-info {
+	padding: 1em;
+	margin: 1em;
+}
