@@ -21,6 +21,22 @@ $(document).ready(function() {
 //	
 //	setInterval(changeBackground, 500);
 
+	
+	//Delete all previous sessions on page reload
+	var refreshSessionsRequest = new Request();
+	refreshSessionsRequest.type = 'DELETE';
+	refreshSessionsRequest.url += '/sessions';
+	this.success = function(response) {
+		console.log(response);
+	};
+	this.error = function(response) {
+		console.log(response);
+	};
+	
+	$.ajax(refreshSessionsRequest);
+	
+	
+	//Hide Tweet Create
 	$('#post-tweet').hide();
 	
 	//	Ajax Request template
@@ -61,13 +77,13 @@ $(document).ready(function() {
 	});
 	
 	
-	//sign up Request
+	//sign up (and sign in) Request
 	$('#signup').on('click', function() {
 		
 		var usernameInput = $('#username').val();
 		var emailInput = $('#email').val();
 		var passwordInput = $('#password').val();
-		var newRequest = new Request();
+		var signUpRequest = new Request();
 		var dataPackage = {
 			user: {
 				username: usernameInput,
@@ -76,22 +92,43 @@ $(document).ready(function() {
 			}
 		};
 		
-		newRequest.type = 'POST';
-		newRequest.url += '/users';
-		newRequest.data = dataPackage;
-		newRequest.success = function(response) {
-			$('#signup-dropdown').hide('slow');
-			$('#signin-dropdown').hide('slow');
-			$('#post-tweet').show('slow');
+		signUpRequest.type = 'POST';
+		signUpRequest.url += '/users';
+		signUpRequest.data = dataPackage;
+		signUpRequest.success = function(response) {
 			console.log(response);
+			
+			var signInRequest = new Request();
+			var signInDataPackage = {
+				user: {
+					username: usernameInput,
+					password: passwordInput
+				}
+			};
+			signInRequest.type = 'POST';
+			signInRequest.url += '/sessions';
+			signInRequest.data = signInDataPackage;
+			console.log(signInDataPackage);
+			signInRequest.success = function(response) {
+				$('#signup-dropdown').hide('slow');
+				$('#signin-dropdown').hide('slow');
+				$('#post-tweet').show('slow');
+				$('#signedin').text("Hello " + usernameInput + ", you are now signed in.")
+			};
+			signInRequest.error = function(response) {
+				$('#sign-up-menu').attr('class', 'has-error');
+				$('#sign-up-menu').append('<li>' + response.responseText + '</li>');
+			};
+
+			$.ajax(signInRequest);
+		
 		};
-		newRequest.error = function(response) {
+		signUpRequest.error = function(response) {
 			$('#sign-up-menu').attr('class', 'has-error');
 			$('#sign-up-menu').append('<li>' + response.responseText + '</li>');
 		};
 		
-		
-		$.ajax(newRequest);
+		$.ajax(signUpRequest);
 
 	});
 	
@@ -170,6 +207,7 @@ $(document).ready(function() {
 		newTweetRequest.url += '/tweets';
 		newTweetRequest.data = dataPackage;
 		newTweetRequest.success = function(response) {
+			console.log(dataPackage);
 			$('#newtweet').after('<span>Succesfully Posted</span>').hide(500, function() {
 				$(this).remove();
 			});
