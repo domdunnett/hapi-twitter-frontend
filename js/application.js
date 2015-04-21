@@ -51,7 +51,7 @@ $(document).ready(function() {
 		};
 	}
 
-	//Get all user tweets
+	//Get all user tweets 
 	function getUserTweets(username) {
 		var userTweetRequest = new Request();
 		
@@ -144,10 +144,18 @@ $(document).ready(function() {
 			signInRequest.data = signInDataPackage;
 			console.log(signInDataPackage);
 			signInRequest.success = function(response) {
-				$('#signup-dropdown').hide('slow');
-				$('#signin-dropdown').hide('slow');
-				$('.user-info').show('slow');
-				$('#signedin').text("Hello " + usernameInput + ", you are now signed in.")
+				console.log(response);
+				console.log(response.message);
+				if(!response.false) {
+					$('#signup-dropdown').hide('slow');
+					$('#signin-dropdown').hide('slow');
+					$('.user-info').show('slow');
+					$('#signedin').text('Hello ' + usernameInput + ', you are now signed in.');
+				}
+				else {
+					$('#signedin').text('Wrong Input Details!');
+				}
+				
 			};
 			signInRequest.error = function(response) {
 				$('#sign-up-menu').attr('class', 'has-error');
@@ -269,11 +277,18 @@ $(document).ready(function() {
 	});
 	
 	
-//sign out request
+	//sign out request
 //	$('#signout').on('click', function() {
+//		var signOutRequest = new Request();
+//		signOutRequest.type = 'DELETE';
+//		signOutRequest.url = '/sessions';
+//		signOutRequest.success = function(response) {
+//			console.log(response);
+//		};
 //		
+//		$.ajax(signOutRequest);
 //	}
-//	
+	
 	
 	
 	//Characters remaining
@@ -281,7 +296,7 @@ $(document).ready(function() {
 		var currentCharacters = $(this).val().length;
 		var remainingCharacters = 140 - currentCharacters;
 		$('#characters-remaining').text(remainingCharacters);
-	})
+	});
 	
 	
 	//Home page reload link
